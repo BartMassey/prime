@@ -66,6 +66,9 @@ fn composite(n: &BigUint, d: u64) -> bool {
     let primes = [2u8, 3, 5, 7, 11, 13, 17, 19, 23, 29];
     for p in &primes {
         let p = BigUint::from(*p);
+        if p > *n {
+            return true;
+        }
         if *n == p {
             return false;
         }

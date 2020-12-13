@@ -22,5 +22,5 @@ Arnault, published in Journal of Symbolic Computation volume
 
 This program started life as an example I wrote in 1999 for
 the [Nickle](http://nickle.org) programming language. In the
-process of translating it to Rust I found and corrected a
-paper-bag bug in the Nickle version.
+process of translating it to Rust I found an improvement to
+the Nickle version.
