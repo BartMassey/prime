@@ -39,7 +39,7 @@ fn witnessexp(b: &BigUint, e: &BigUint, m: &BigUint) -> Witness {
         return tmp;
     }
     let t: BigUint = BigUint::pow(&tmp.pow, 2) % m;
-    if t == BigUint::from(1u8) && &tmp.pow != &BigUint::from(1u8) && &tmp.pow + BigUint::from(1u8) != *m  {
+    if t == BigUint::from(1u8) && tmp.pow != BigUint::from(1u8) && &tmp.pow + BigUint::from(1u8) != *m  {
         tmp.wit = tmp.pow;
         tmp.pow = t;
         return tmp;
