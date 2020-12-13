@@ -3,8 +3,20 @@
 //!
 //! Translated from a 1999 [Nickle](http://nickle.org) example.
 
+use argh::FromArgs;
 use num_bigint::*;
 use rand::prelude::*;
+
+#[derive(FromArgs)]
+/// primality test
+struct Args {
+    #[argh(option, short='d', default="1024")]
+    /// composite failure probability 1/2**d
+    d: u64,
+    #[argh(positional)]
+    /// number to test
+    n: BigUint,
+}
 
 struct Witness {
     pow: BigUint,
@@ -71,12 +83,6 @@ fn composite(n: &BigUint, d: u64) -> bool {
 }
 
 fn main() {
-    let argv: Vec<String> = std::env::args().collect();
-    let n = argv[1].parse().unwrap();
-    let d = if argv.len() > 2 {
-        argv[2].parse().unwrap()
-    } else {
-        1024
-    };
-    println!("{}", !composite(&n, d));
+    let args: Args = argh::from_env();
+    println!("{}", !composite(&args.n, args.d));
 }

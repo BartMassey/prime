@@ -6,6 +6,7 @@ edition = "2018"
 
 [dependencies]
 rand = "0.7"
+argh = "0.1"
 
 [dependencies.num-bigint]
 version = "0.3"
