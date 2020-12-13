@@ -10,7 +10,7 @@ use rand::prelude::*;
 #[derive(FromArgs)]
 /// primality test
 struct Args {
-    #[argh(option, short='d', default="1024")]
+    #[argh(option, short = 'd', default = "1024")]
     /// composite failure probability 1/2**d
     d: u64,
     #[argh(positional)]
@@ -28,10 +28,16 @@ struct Witness {
 /// Cormen/Leiserson/Rivest.
 fn witnessexp(b: &BigUint, e: &BigUint, m: &BigUint) -> Witness {
     if *e == BigUint::from(0u8) {
-        return Witness { pow: BigUint::from(0u8), wit: BigUint::from(1u8) };
+        return Witness {
+            pow: BigUint::from(0u8),
+            wit: BigUint::from(1u8),
+        };
     }
     if *e == BigUint::from(1u8) {
-        return Witness { pow: b % m, wit: BigUint::from(0u8)};
+        return Witness {
+            pow: b % m,
+            wit: BigUint::from(0u8),
+        };
     }
     let ehalf = e / BigUint::from(2u8);
     let mut tmp = witnessexp(b, &ehalf, m);
@@ -39,7 +45,10 @@ fn witnessexp(b: &BigUint, e: &BigUint, m: &BigUint) -> Witness {
         return tmp;
     }
     let t: BigUint = BigUint::pow(&tmp.pow, 2) % m;
-    if t == BigUint::from(1u8) && tmp.pow != BigUint::from(1u8) && &tmp.pow + BigUint::from(1u8) != *m  {
+    if t == BigUint::from(1u8)
+        && tmp.pow != BigUint::from(1u8)
+        && &tmp.pow + BigUint::from(1u8) != *m
+    {
         tmp.wit = tmp.pow;
         tmp.pow = t;
         return tmp;
@@ -76,7 +85,7 @@ fn composite(n: &BigUint, d: u64) -> bool {
             return true;
         }
     }
-    for _ in 0 .. d {
+    for _ in 0..d {
         let a = rng.gen_range(BigUint::from(1u8), n);
         if witness(&a, &n) {
             return true;
